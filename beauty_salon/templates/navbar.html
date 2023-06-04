@@ -1,0 +1,25 @@
+{% load static %}
+<!-- Link To Css -->
+<link rel="stylesheet" type="text/css" href="{% static 'index.css' %}" />
+<header>
+	<div class="nav-wrap">
+		<nav class="menu">
+			<a href="/" class="menu__img">
+				<img src="/static/assets/logo.svg" alt="Beauty Salon" />
+			</a>
+			<div class="menu__navbar">
+				<a href="/" class="menu__item">Главная</a>
+				<a href="{% url 'doctors' %}" class="menu__item">Наши врачи</a>
+				<a href="{% url 'services' %}" class="menu__item">Услуги</a>
+				{% if user.is_authenticated %}
+				<a href="{% url 'profile' %}" class="menu__item">Профиль</a>
+				{% else %}
+				<a href="{% url 'login' %}" class="menu__item">Войти</a>
+				{% endif %}
+			</div>
+			<div class="menu__btn btn">
+				<a href="{% url 'booking' %}">Записаться</a>
+			</div>
+		</nav>
+	</div>
+</header>

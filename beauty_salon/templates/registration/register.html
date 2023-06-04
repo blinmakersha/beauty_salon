@@ -1,0 +1,22 @@
+{% extends 'main.html' %} {% load static %} {% block content %}
+<div class="container">
+	<h1>Регистрация</h1>
+	<hr />
+
+	{% if form_errors %}
+	<h4>В форме есть ошибки, неправильно введены данные:</h4>
+	<p>{{ form_errors.error }}</p>
+	{% for key, value in form_errors.items %} {{ key }}: {{ value }} {% endfor %}
+	{% endif %} {% if request.user.is_authenticated %}
+	<h5>Вы уже вошли в аккаунт.</h5>
+	{% else %}
+
+	<form method="POST" action="">
+		{% csrf_token %} {{ form.as_p }}
+		<input type="submit" value="Register" />
+	</form>
+	<p>Уже зарегистрированы?</p>
+	<a href="{% url 'login' %}" style="color: #000">Войти</a>
+	{% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,289 @@
+{% extends 'main.html' %} {% load static %} {% block content %}
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Beauty Salon</title>
+		<!-- Boxicons CSS -->
+		<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" />
+		<!-- Link To Css -->
+		<link rel="stylesheet" type="text/css" href="{% static '/index.css' %}" />
+	</head>
+	<body>
+		<!-- Header Start -->
+		<header>
+			<div class="container">
+				<div class="offer">
+					<h1 class="header__title">Частная клиника красоты Beauty Salon</h1>
+					<p class="header__text">С нами, вы станете еще краше!</p>
+				</div>
+			</div>
+		</header>
+		<!-- Header End -->
+		<!-- Doctors Start -->
+		<section class="doctors">
+			<div class="container">
+				<h2 class="doctors__title">Наши специалисты</h2>
+				<div class="doctors__cards">
+					<div class="doctors__wrap-card">
+						<div class="card__item">
+							<div class="card__img card__img_1"></div>
+							<h3 class="card__title">Влада Перемитина</h3>
+							<p class="card__text">
+								Врач дерматовенеролог, опыт работы: 5 лет
+							</p>
+						</div>
+						<div class="btn btn_doctors">
+							<a href="{% url 'booking' %}">Записаться</a>
+						</div>
+					</div>
+					<div class="doctors__wrap-card">
+						<div class="card__item">
+							<div class="card__img card__img_2"></div>
+							<h3 class="card__title">Владислав Черкасов</h3>
+							<p class="card__text">
+								Главный врач дерматовенеролог, опыт работы: 14 лет
+							</p>
+						</div>
+						<div class="btn btn_doctors">
+							<a href="{% url 'booking' %}">Записаться</a>
+						</div>
+					</div>
+					<div class="doctors__wrap-card">
+						<div class="card__item">
+							<div class="card__img card__img_3"></div>
+							<h3 class="card__title">Надежда Автомонова</h3>
+							<p class="card__text">Врач косметолог, опыт работы: 13 лет</p>
+						</div>
+						<div class="btn btn_doctors">
+							<a href="{% url 'booking' %}">Записаться</a>
+						</div>
+					</div>
+				</div>
+				<div class="doctors__text-wrapper">
+					<img class="doctors__arrow" src="/static/assets/Arrow 1.svg" />
+					<a href="{% url 'doctors' %}" class="doctors__text"
+						>Все специалисты</a
+					>
+				</div>
+			</div>
+		</section>
+		<!-- Doctors End -->
+		<!-- About Start -->
+		<section class="standarts">
+			<div class="container container_standarts">
+				<div class="standarts-wrapper">
+					<div class="standarts-wrapper__content">
+						<h2 class="standarts__title">Почему мы?</h2>
+						<p class="standarts__text">
+							Клиника красоты "Beauty Clinic" успешно работает с 2018 года. Мы
+							имеем богатый опыт в предоставлении качественных услуг. Мы
+							гордимся тем, что являемся единственной частной клиникой в Майами,
+							где весь персонал говорит на русском языке. Наша команда
+							специалистов обеспечивает индивидуальное обслуживание и понимание
+							потребностей наших клиентов. В клинике работают только
+							высококвалифицированные специалисты с многолетним опытом работы.
+							Мы постоянно совершенствуем свои навыки, чтобы предлагать
+							передовые методы и инновационные процедуры.
+						</p>
+					</div>
+					<div class="about__img">
+						<img src="/static/assets/photo-clinic.png" />
+					</div>
+				</div>
+				<div class="achievements">
+					<div class="achievements__item">
+						<div class="achievements__wrapper">
+							<img
+								src="/static/assets/security.png"
+								class="achievements__icon"
+							/>
+						</div>
+						<p class="achievements__text">Опыт & надежность</p>
+					</div>
+					<div class="achievements__item">
+						<div class="achievements__wrapper">
+							<img
+								src="/static/assets/consulting.png"
+								class="achievements__icon"
+							/>
+						</div>
+						<p class="achievements__text">Русскоязычный персонал</p>
+					</div>
+					<div class="achievements__item">
+						<div class="achievements__wrapper">
+							<img
+								src="/static/assets/quality-control.png"
+								class="achievements__icon"
+							/>
+						</div>
+						<p class="achievements__text">Квалифицированные специалисты</p>
+					</div>
+					<div class="break"></div>
+					<div class="achievements__item">
+						<div class="achievements__wrapper">
+							<img
+								src="static/assets/price-tag.png"
+								class="achievements__icon"
+							/>
+						</div>
+						<p class="achievements__text">Низкие цены на рынке</p>
+					</div>
+					<div class="achievements__item">
+						<div class="achievements__wrapper">
+							<img
+								src="static/assets/price-tag-2.png"
+								class="achievements__icon"
+							/>
+						</div>
+						<p class="achievements__text">Программа лояльности</p>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- About end -->
+		<!-- Reviews Start-->
+		<section class="reviews">
+			<div class="container">
+				<h2 class="reviews__title">Отзывы</h2>
+				<div class="reviews__wrapper">
+					<div class="reviews__item">
+						<div class="reviews__img_1"></div>
+						<div class="review-wrap">
+							<h3 class="reviews__item__title">Кристина Загогулько</h3>
+							<p class="review__text">
+								Очень довольна обслуживанием в данной клинике! Особенно радует,
+								что все говорят на русском)) теперь только сюда хожу
+							</p>
+						</div>
+					</div>
+					<div class="reviews__item reviews__item_modified">
+						<div class="reviews__img_2"></div>
+						<div class="review-wrap">
+							<h3 class="reviews__item__title">Ирина Агеева</h3>
+							<p class="review__text">
+								В этой клинике, мне наконец помогли справится с акне. Рекомендую
+								сходить на комбинированную чистку, это действительно спасение от
+								прыщей!!!
+							</p>
+						</div>
+					</div>
+					<div class="reviews__item">
+						<div class="reviews__img_3"></div>
+						<div class="review-wrap">
+							<h3 class="reviews__item__title">Светлана Кучмасова</h3>
+							<p class="review__text">
+								Я поражена тем, как здесь всё профессионально. Цены это приятный
+								сюрприз, особенно учитывая качество услуг. Успела стать
+								постоянным клиентом)
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="btn btn_reviews">
+					<a href="{% url 'booking' %}">Записаться</a>
+				</div>
+			</div>
+		</section>
+		<!-- Reviews End-->
+		<!-- Clinic Start-->
+		<setion class="clinic">
+			<div class="container">
+				<h2 class="clinic__title">Наша клиника</h2>
+				<div class="flex-wrapper">
+					<div id="btn-prev">
+						<img src="/static/assets/arrow-prev.svg" alt="" />
+					</div>
+					<div class="slider-wrapper">
+						<div class="slide active">
+							<img src="/static/assets/slider-1.jpeg" alt="" />
+						</div>
+						<div class="slide">
+							<img src="/static/assets/slider-2.jpeg" alt="" />
+						</div>
+						<div class="slide">
+							<img src="/static/assets/slider-3.jpeg" alt="" />
+						</div>
+						<div class="slide">
+							<img src="/static/assets/slider-4.jpeg" alt="" />
+						</div>
+					</div>
+					<div id="btn-next">
+						<img src="/static/assets/arrow-next.svg" alt="" />
+					</div>
+				</div>
+				<div class="dots-wrapper">
+					<span class="dot active"></span>
+					<span class="dot"></span>
+					<span class="dot"></span>
+					<span class="dot"></span>
+				</div>
+			</div>
+		</setion>
+		<!-- Clinic End-->
+		<!-- Footet Start -->
+		<footer class="footer">
+			<div class="container container_footer">
+				<div class="footer-wrap">
+					<div class="footer__item">
+						<h3 class="footer__title">Контактная информация</h3>
+						<ul class="footer__list footer__list_contact">
+							<li>
+								<img src="/static/assets/email.svg" alt="" />
+								<a href="mailto:beauty@clinic.com">beauty@clinic.com</a>
+							</li>
+							<li>
+								<img src="/static/assets/call.svg" alt="" />
+								<a href="tel:+13055551234">+1 (305) 555-1234</a>
+							</li>
+							<li>
+								<img src="/static/assets/placeholder.svg" alt="" />
+								<a href="https://goo.gl/maps/CCEo343jVtv7khq97"
+									>123 Main Street, Miami, FL 33101, USA</a
+								>
+							</li>
+						</ul>
+					</div>
+					<div class="footer__item">
+						<h3 class="footer__title">Основные ссылки</h3>
+						<ul class="footer__list footer__list_contact_arrow">
+							<li>
+								<a href="">Главная</a>
+							</li>
+							<li>
+								<a href="{% url 'doctors' %}">Наши специалисты</a>
+							</li>
+							<li>
+								<a href="{% url 'services' %}">Наши услуги</a>
+							</li>
+						</ul>
+					</div>
+					<div class="footer__item">
+						<h3 class="footer__title">Социальные сети</h3>
+						<ul class="footer__list footer__list_contact_arrow">
+							<li>
+								<a href="https://vk.com">VK</a>
+							</li>
+							<li>
+								<a href="https://instagram.com">Instagram</a>
+							</li>
+							<li>
+								<a href="https://t.me">Telegram</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="footer__line"></div>
+				<a href="" class="footer__logo">
+					<img src="/static/assets/logo.svg" alt="Beauty Salon" />
+				</a>
+				<p class="footer__text">Все права защищены.</p>
+			</div>
+		</footer>
+		<!-- Footet End -->
+
+		<script src="static/slider.js"></script>
+	</body>
+</html>
+{% endblock %}

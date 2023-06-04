@@ -1,0 +1,23 @@
+{% extends "main.html" %} {% block content %}
+<div class="container">
+	<h1>Наши услуги</h1>
+	<form action="/services/" method="GET">
+		<input class="search" name="q" type="search" placeholder="Поиск" />
+		<button class="btn_search" type="submit">найти</button>
+	</form>
+
+	{% if services_list %}
+	<ul>
+		{% for service in services_list %}
+		<li>
+			<p>{{ service.title }} ${{ service.price }}</p>
+			<p>{{ service.description }}</p>
+		</li>
+		{% endfor %}
+	</ul>
+
+	{% else %}
+	<p>Услуги пока не добавлены.</p>
+	{% endif %}
+</div>
+{% endblock %}

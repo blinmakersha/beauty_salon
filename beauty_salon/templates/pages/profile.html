@@ -1,0 +1,31 @@
+{% extends 'main.html' %} {% load static %} {% block content %}
+<div class="container">
+	<h1>Личный кабинет</h1>
+	{% if user_data %}
+	<h4>Ваши данные:</h4>
+	<ul>
+		{% for key, value in user_data.items %} {% if key != 'appointments' %}
+		<li>{{key}}: {{value}}</li>
+		{% endif %} {% endfor %}
+	</ul>
+	{% endif %} {% if user_data.appointments %}
+	<h4>Ваши записи:</h4>
+	<ul>
+		{% for app in user_data.appointments %}
+		<li>{{ app }}</li>
+		{% endfor %}
+	</ul>
+	{% elif not appointments %}
+	<p>Записей ещё нет.</p>
+	{% endif %} {% if form_errors %}
+	<h5>{{ form_errors }}</h5>
+	{% endif %}
+	<form action="/profile/" method="POST">
+		{% csrf_token %} {{ form }}
+		<input type="submit" value="Add funds" />
+	</form>
+	<a href="{% url 'logout' %}?next={% url 'home' %}" style="color: #000"
+		>Logout</a
+	>
+</div>
+{% endblock %}

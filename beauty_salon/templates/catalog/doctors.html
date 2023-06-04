@@ -1,0 +1,25 @@
+{% extends "main.html" %} {% block content %}
+<section class="doctors">
+	<div class="container">
+		<h2 class="doctors__title">Наши специалисты</h2>
+		{% if doctors_list %}
+		<div class="doctors__cards">
+			{% for doctor in doctors_list %}
+			<div class="card__item">
+				<div class="card__img">
+					<img
+						src="{{ doctor.photo }}"
+						alt="not added yet"
+						width="200"
+						height="200"
+					/>
+				</div>
+				<h3 class="card__title">{{ doctor.name }} {{ doctor.surname }}</h3>
+				<p class="card__text">{{ doctor.speciality }},</p>
+				<p class="card__text">{{ doctor.description }}</p>
+			</div>
+			{% endfor %} {% endif %}
+		</div>
+	</div>
+</section>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'main.html' %} {% load static %} {% block content %}
+<div class="container">
+	<h1>Вход</h1>
+
+	{% if form.errors %}
+	<p>{{ form.errors.error }}</p>
+	{% endif %}
+
+	<form action="{% url 'login' %}" method="POST">
+		{{ form }} {% csrf_token %}
+		<button type="" class="btn btn-success">Подтвердить</button>
+	</form>
+	<p>Ещё не зарегистрированы?</p>
+	<a href="{% url 'register' %}" style="color: #000">Зарегистрироваться</a>
+	{% endblock %}
+</div>
