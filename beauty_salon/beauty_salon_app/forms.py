@@ -1,17 +1,15 @@
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
 
 import pytz
 from django import forms
-from django.contrib import messages
 from django.contrib.auth import forms as auth_forms
 from django.contrib.auth import models as auth_models
-from django.forms import (CharField, DateInput, DecimalField, EmailField,
-                          EmailInput, Form, TextInput)
+from django.forms import CharField, DecimalField, EmailField, Form
 from django.forms.widgets import SelectDateWidget
 
 from .config import (CF_DEFAULT, DECIMAL_MAX_DIGITS, DECIMAL_PLACES,
                      EMAIL_DEFAULT_LEN)
-from .models import Appointment, Client, Doctor, DoctorToService, Service
+from .models import Appointment, Doctor, DoctorToService, Service
 
 
 class AddFundsForm(Form):

@@ -1,13 +1,10 @@
-from datetime import datetime, time, timedelta, timezone
-
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.db import transaction
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
-from django.urls import reverse  # дает url
+from django.urls import reverse
 from django.views.generic import ListView
 from rest_framework import status as status_codes
 from rest_framework.parsers import JSONParser

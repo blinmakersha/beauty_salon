@@ -52,7 +52,6 @@ class ViewSetsTests(TestCase):
         for cls_model, url, data, to_change in self.pages:
             # POST
             resp_post = self.client.post(url, data=data)
-            #print(resp_post)
             self.assertEqual(resp_post.status_code, status.HTTP_201_CREATED)
             created_id = cls_model.objects.get(**data).id
             # PUT
@@ -96,9 +95,7 @@ class ViewSetsTests(TestCase):
             resp_put = self.client.put(
                 f'{url}?id={created.id}',
                 data=dumps(to_change),
-                # content_type='text/json'
             )
-            #print(f'RESP PUT CONTENT: {resp_put.content}')
             self.assertEqual(resp_put.status_code, status.HTTP_403_FORBIDDEN)
             # DELETE EXISTING
             resp_delete = self.client.delete(f'{url}?id={created.id}')

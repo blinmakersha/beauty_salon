@@ -164,7 +164,6 @@ class Appointment(UUIDMixin, CreatedMixin, ModifiedMixin):
         _('time of beginning'), blank=False, null=False)
     time_of_ending = models.DateTimeField(
         _('time of ending'), blank=False, null=False)
-    # time_of_ending = time_of_beginning + Service.duration
     status_payment = models.CharField(
         _('status payment'), max_length=20, choices=CHOICES, default=not_paid)
     date_of_payment = models.DateTimeField(
@@ -221,13 +220,6 @@ class Appointment(UUIDMixin, CreatedMixin, ModifiedMixin):
                 params={'time_of_beginning': self.time_of_beginning,
                         'time_of_ending': self.time_of_ending},
             )
-        # if all([service in self.doctor.services.all() for service in self.cleaned_data['services']]):
-        #     print([service.title for service in self.services.all()])
-        #     print([service.title for service in self.doctor.services.all()])
-        #     raise ValidationError(
-        #         'The doctor does not do such service.',
-        #         params={'doctor': 'doctor does not do such services.'},
-        #     )
 
 
 class ServiceToAppointment(UUIDMixin, CreatedMixin, ModifiedMixin):
