@@ -16,6 +16,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = 'login'
 
 INSTALLED_APPS = [
     'beauty_salon_app',

@@ -28,7 +28,9 @@
 				<div class="doctors__cards">
 					<div class="doctors__wrap-card">
 						<div class="card__item">
-							<div class="card__img card__img_1"></div>
+							<div class="card__img">
+								<img src="static/assets/doctor-1.jpeg" alt="" />
+							</div>
 							<h3 class="card__title">Влада Перемитина</h3>
 							<p class="card__text">
 								Врач дерматовенеролог, опыт работы: 5 лет
@@ -40,7 +42,9 @@
 					</div>
 					<div class="doctors__wrap-card">
 						<div class="card__item">
-							<div class="card__img card__img_2"></div>
+							<div class="card__img">
+								<img src="static/assets/doctor-2.jpeg" alt="" />
+							</div>
 							<h3 class="card__title">Владислав Черкасов</h3>
 							<p class="card__text">
 								Главный врач дерматовенеролог, опыт работы: 14 лет
@@ -52,7 +56,9 @@
 					</div>
 					<div class="doctors__wrap-card">
 						<div class="card__item">
-							<div class="card__img card__img_3"></div>
+							<div class="card__img">
+								<img src="static/assets/doctor-3.jpeg" alt="" />
+							</div>
 							<h3 class="card__title">Надежда Автомонова</h3>
 							<p class="card__text">Врач косметолог, опыт работы: 13 лет</p>
 						</div>
@@ -249,7 +255,7 @@
 						<h3 class="footer__title">Основные ссылки</h3>
 						<ul class="footer__list footer__list_contact_arrow">
 							<li>
-								<a href="">Главная</a>
+								<a href="{% url 'home' %}">Главная</a>
 							</li>
 							<li>
 								<a href="{% url 'doctors' %}">Наши специалисты</a>

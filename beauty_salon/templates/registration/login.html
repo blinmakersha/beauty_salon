@@ -1,16 +1,102 @@
 {% extends 'main.html' %} {% load static %} {% block content %}
-<div class="container">
-	<h1>Вход</h1>
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Beauty Salon</title>
+		<!-- Boxicons CSS -->
+		<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" />
+		<!-- Link To Css -->
+		<link rel="stylesheet" href="{% static 'login.css' %}" />
+	</head>
 
-	{% if form.errors %}
-	<p>{{ form.errors.error }}</p>
-	{% endif %}
+	<body>
+		<!-- Auth Start -->
+		<section class="auth container">
+			<div class="wrap-form">
+				<h2 class="auth__title">Войти</h2>
+				{% if form.errors %}
+				<p>{{ form.errors.error }}</p>
+				{% endif %}
+				<form action="{% url 'login' %}" method="POST" class="auth__form">
+					{{ form }} {% csrf_token %}
+					<button type="submit">Подтвердить</button>
+				</form>
+				<p class="auth__text">
+					Еще нет аккаунта?<a href="{% url 'register' %}">
+						Зарегистрироваться</a
+					>
+				</p>
+			</div>
+			<div class="auth__img">
+				<img src="/static/assets/Illustration.svg" alt="" />
+			</div>
+		</section>
+		<!-- Auth End -->
+		<!-- Footet Start -->
+		<footer class="footer">
+			<div class="container container_footer">
+				<div class="footer-wrap">
+					<div class="footer__item">
+						<h3 class="footer__title">Контактная информация</h3>
+						<ul class="footer__list footer__list_contact">
+							<li>
+								<img src="/static/assets/email.svg" alt="" />
+								<a href="mailto:beauty@clinic.com">beauty@clinic.com</a>
+							</li>
+							<li>
+								<img src="/static/assets/call.svg" alt="" />
+								<a href="tel:+13055551234">+1 (305) 555-1234</a>
+							</li>
+							<li>
+								<img src="/static/assets/placeholder.svg" alt="" />
+								<a href="https://goo.gl/maps/CCEo343jVtv7khq97"
+									>123 Main Street, Miami, FL 33101, USA</a
+								>
+							</li>
+						</ul>
+					</div>
+					<div class="footer__item">
+						<h3 class="footer__title">Основные ссылки</h3>
+						<ul class="footer__list footer__list_contact_arrow">
+							<li>
+								<a href="{% url 'home' %}">Главная</a>
+							</li>
+							<li>
+								<a href="{% url 'doctors' %}">Наши специалисты</a>
+							</li>
+							<li>
+								<a href="{% url 'services' %}">Наши услуги</a>
+							</li>
+						</ul>
+					</div>
+					<div class="footer__item">
+						<h3 class="footer__title">Социальные сети</h3>
+						<ul class="footer__list footer__list_contact_arrow">
+							<li>
+								<a href="https://vk.com">VK</a>
+							</li>
+							<li>
+								<a href="https://instagram.com">Instagram</a>
+							</li>
+							<li>
+								<a href="https://t.me">Telegram</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="footer__line"></div>
+				<a href="" class="footer__logo">
+					<img src="/static/assets/logo.svg" alt="Beauty Salon" />
+				</a>
+				<p class="footer__text">Все права защищены.</p>
+			</div>
+			{% endblock %}
+		</footer>
+		<!-- Footet End -->
 
-	<form action="{% url 'login' %}" method="POST">
-		{{ form }} {% csrf_token %}
-		<button type="" class="btn btn-success">Подтвердить</button>
-	</form>
-	<p>Ещё не зарегистрированы?</p>
-	<a href="{% url 'register' %}" style="color: #000">Зарегистрироваться</a>
-	{% endblock %}
-</div>
+		<script src="./Home.js"></script>
+	</body>
+</html>

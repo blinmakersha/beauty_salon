@@ -17,7 +17,7 @@ from rest_framework.viewsets import ModelViewSet
 
 from . import config
 from .forms import AddFundsForm, AppointmentForm, RegistrationForm
-from .models import Appointment, Client, Doctor, DoctorToService, Service
+from .models import Appointment, Client, Doctor, Service
 from .serializers import DoctorSerializer, ServiceSerializer
 
 
@@ -62,127 +62,43 @@ def custom_main(request):
                   )
 
 
-# def service_page(request):
-#     if 'q' in request.GET:
-#         q = request.GET['q']
-#         data = Service.objects.filter(title__icontains=q)
-#     else:
-#         data = Service.objects.all()
-#     return render(request,
-#                   'catalog/services.html',
-#                   context={
-#                       'services': data,
-#                   })
-
-
-# booking page
-# @login_required
-# def booking_page(request):
-#     client = Client.objects.get(user=request.user)
-#     service_id = request.GET.get('id', '')
-#     try:
-#         service = Service.objects.get(id=service_id)
-#     except Exception:
-#         service = None
-#     else:
-#         if request.method == 'POST' and client.money >= service.price:
-#             with transaction.atomic():
-#                 client.money -= service.price
-#                 client.appointments.add(service)
-#                 client.save()
-#             url = reverse('service')
-#             return HttpResponseRedirect(f'{url}?id={service_id}')
-#     return render(
-#         request,
-#         template_name=config.TEMPLATE_PURCHASE,
-#         context={
-#             'service': service,
-#             'funds': client.money,
-#             'enough_money': client.money - service.price >= 0,
-#         }
-#     )
-
-
 @login_required
 def booking_page(request):
-
+    client = Client.objects.get(user=request.user)
     if request.method == "POST":
-        app_form = AppointmentForm(request.POST)
+        app_form = AppointmentForm(client, request.POST)
         if app_form.is_valid():
             app_form.save()
-            if app_form.errors:
+            if 'doctor' in app_form.errors:
                 messages.add_message(request, messages.INFO,
                                      'Выбранный вами доктор, не выполняет эту услугу. Попробуйте еще раз.')
                 return redirect('/booking')
-            if not app_form.errors:
+            if 'service' in app_form.errors:
                 messages.add_message(request, messages.INFO,
-                                     'Вы успешно записаны.')
+                                     'Недостаточное количество средств. Пополните баланс.')
+            if 'appointment' in app_form.errors:
+                messages.add_message(request, messages.INFO,
+                                     'Текущее время уже занято, выберите другое.')
+            if 'app_date' in app_form.errors:
+                messages.add_message(request, messages.INFO,
+                                     'Нельзя выбрать время в прошлом. Попробуйте еще раз.')
+            if not app_form.errors:
+                if app_form.cleaned_data.get('status_payment') == 'P':
+                    service_id = app_form.cleaned_data.get('service')
+                    service = Service.objects.get(pk=service_id)
+                    if client.money >= service.price:
+                        with transaction.atomic():
+                            client.money -= service.price
+                            client.save()
+                            messages.add_message(request, messages.INFO,
+                                                 'Вы успешно записаны.')
                 return redirect('/booking')
         else:
             print(app_form.errors)
     else:
-        app_form = AppointmentForm()
+        app_form = AppointmentForm(client)
     return render(request, '/Users/valentinai/semestr2/programming/beauty_salon/beauty_salon/templates/pages/booking.html',
                   {'app_form': app_form})
-
-
-# @login_required
-# def booking_page(request):
-#     client = Client.objects.get(user=request.user)
-#     app_details = []
-
-#     if request.method == "POST":
-#         initial = dict(request.POST)
-#         # serv = Service.objects.get(id=initial['service'][0])
-#         # beginning = get_beginning(initial)
-#         # ending = beginning + timedelta(minutes=serv.duration)
-#         # keys = 'app_date_day', 'app_date_month', 'app_date_year'
-#         # for key in keys:
-#         #     initial[key] = initial[key][0]
-#         app_form = AppointmentForm(initial)
-#         if app_form.is_valid():
-#             doc_id = app_form.cleaned_data.get('doctor')
-#             serv_id = app_form.cleaned_data.get('service')
-#             doc = Doctor.objects.all().filter(id=doc_id).first()
-#             serv = Service.objects.all().filter(id=serv_id).first()
-#             beginning = app_form.cleaned_data.get('time_of_beginning')
-#             ending = app_form.cleaned_data.get('time_of_ending')
-#             status = app_form.cleaned_data.get('status_payment')
-#             date_of_payment = app_form.cleaned_data.get('date_of_payment')
-#             if status == 'P' and Client.money >= Service.price:
-#                 date_of_payment = datetime.now()
-#             else:
-#                 date_of_payment = None
-#             # check if doctor is related to the service
-#             if check_doc_to_service(doc_id, serv_id):
-#                 if datetime.now() < beginning:  # check if appointment date is valid
-#                     if doc_is_not_busy(doc,  # check if doctor is available during that slot
-#                                        beginning,
-#                                        ending):
-#                         app = Appointment(client=client, doctor=doc_id,
-#                                           time_of_beginning=beginning,  # time_of_beginning,
-#                                           time_of_ending=ending,  # time_of_ending,
-#                                           status_payment=status,
-#                                           date_of_payment=date_of_payment,
-#                                           services=serv_id)
-#                         app.save()
-#                         messages.add_message(request, messages.INFO,
-#                                              'Appointment created.')
-#                         return redirect('/booking')
-#                     else:
-#                         app_form.add_error(
-#                             'doc_is_not_busy', 'This doctor is busy at this time.')
-#                 else:
-#                     app_form.add_error('app_date', 'Invalid date.')
-#             else:
-#                 app_form.add_error(
-#                     'check_doc_to_service', 'This doctor does not do such service, try another one.')
-#         else:
-#             print(app_form.errors)
-#     else:
-#         app_form = AppointmentForm()
-#     return render(request, '/Users/valentinai/semestr2/programming/beauty_salon/beauty_salon/templates/pages/booking.html',
-#                   {'client': client, 'app_form': app_form, 'app_details': app_details})
 
 
 # profile page
@@ -226,7 +142,6 @@ def profile_page(request):
             'form': AddFundsForm(),
             'user_data': user_data,
             'form_errors': '; '.join(form_errors),
-            # 'appointments': [appointment.time_of_beginning for appointment in client.appointments.all()],
         },
     )
 

@@ -1,4 +1,4 @@
-{% extends "main.html" %} {% block content %}
+{% extends "main.html" %} {% load static %} {% block content %} {% comment %}
 <div class="container">
 	<h1>Наши услуги</h1>
 	<form action="/services/" method="GET">
@@ -20,4 +20,117 @@
 	<p>Услуги пока не добавлены.</p>
 	{% endif %}
 </div>
-{% endblock %}
+{% endblock %} {% endcomment %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Beauty Salon</title>
+		<!-- Box Icons CSS -->
+		<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" />
+		<!-- Link To Css -->
+		<link rel="stylesheet" href="{% static 'services.css' %}" />
+	</head>
+
+	<body>
+		<section class="service container">
+			<h2 class="service__title">Услуги</h2>
+			<form action="/services/" method="GET">
+				<div class="search-box">
+					<button class="btn-search" type="submit">
+						<img src="/static/assets/search.svg" alt="" />
+					</button>
+					<input
+						type="search"
+						name="q"
+						class="input-search"
+						placeholder="Поиск..."
+					/>
+				</div>
+			</form>
+			{% if services_list %}
+			<div class="service__items">
+				{% for service in services_list %}
+				<div class="service__item">
+					<div class="service__img">
+						<img src="{{ service.photo }}" alt="" />
+					</div>
+					<div class="wrap-service">
+						<h3>{{ service.title }}</h3>
+						<p>{{ service.description }}</p>
+					</div>
+					<div class="service__cost">${{ service.price }}</div>
+				</div>
+
+				{% endfor %} {% else %}
+				<p>Услуги пока не добавлены.</p>
+				{% endif %}
+			</div>
+		</section>
+		<!-- Footet Start -->
+		<footer class="footer">
+			<div class="container container_footer">
+				<div class="footer-wrap">
+					<div class="footer__item">
+						<h3 class="footer__title">Контактная информация</h3>
+						<ul class="footer__list footer__list_contact">
+							<li>
+								<img src="/static/assets/email.svg" alt="" />
+								<a href="mailto:beauty@clinic.com">beauty@clinic.com</a>
+							</li>
+							<li>
+								<img src="/static/assets/call.svg" alt="" />
+								<a href="tel:+13055551234">+1 (305) 555-1234</a>
+							</li>
+							<li>
+								<img src="/static/assets/placeholder.svg" alt="" />
+								<a href="https://goo.gl/maps/CCEo343jVtv7khq97"
+									>123 Main Street, Miami, FL 33101, USA</a
+								>
+							</li>
+						</ul>
+					</div>
+					<div class="footer__item">
+						<h3 class="footer__title">Основные ссылки</h3>
+						<ul class="footer__list footer__list_contact_arrow">
+							<li>
+								<a href="{% url 'home' %}">Главная</a>
+							</li>
+							<li>
+								<a href="{% url 'doctors' %}">Наши специалисты</a>
+							</li>
+							<li>
+								<a href="{% url 'services' %}">Наши услуги</a>
+							</li>
+						</ul>
+					</div>
+					<div class="footer__item">
+						<h3 class="footer__title">Социальные сети</h3>
+						<ul class="footer__list footer__list_contact_arrow">
+							<li>
+								<a href="https://vk.com">VK</a>
+							</li>
+							<li>
+								<a href="https://instagram.com">Instagram</a>
+							</li>
+							<li>
+								<a href="https://t.me">Telegram</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="footer__line"></div>
+				<a href="" class="footer__logo">
+					<img src="/static/assets/logo.svg" alt="Beauty Salon" />
+				</a>
+				<p class="footer__text">Все права защищены.</p>
+			</div>
+			{% endblock %}
+		</footer>
+		<!-- Footet End -->
+
+		<script src="./Home.js"></script>
+	</body>
+</html>

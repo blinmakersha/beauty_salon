@@ -5,6 +5,7 @@ import phonenumbers
 from django.conf.global_settings import AUTH_USER_MODEL
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from phonenumbers import NumberParseException
 
@@ -188,14 +189,14 @@ class Appointment(UUIDMixin, CreatedMixin, ModifiedMixin):
                 return False
         return True
 
-    # def check_service_to_doc(self):
-    #     for service in DoctorToService.objects.filter(doctor=self.doctor.id):
-    #         if service.service.id == self.service:
-    #             pass
-    #     return True
-
     def clean(self):
         super().clean()
+        if self.time_of_beginning < timezone.now() or self.time_of_ending < timezone.now():
+            raise ValidationError(
+                'Time of beginning must be in future, not in the past.',
+                params={'time_of_beginning': self.time_of_beginning,
+                        'time_of_ending': self.time_of_ending},
+            )
         if not self.time_of_ending:
             raise ValidationError(
                 {'time_of_ending': 'time'},

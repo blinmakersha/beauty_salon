@@ -24,8 +24,6 @@
 		{% csrf_token %} {{ form }}
 		<input type="submit" value="Add funds" />
 	</form>
-	<a href="{% url 'logout' %}?next={% url 'home' %}" style="color: #000"
-		>Logout</a
-	>
+	<a href="{% url 'logout' %}?next={% url 'home' %}" style="color: #000">Logout</a>
 </div>
 {% endblock %}
