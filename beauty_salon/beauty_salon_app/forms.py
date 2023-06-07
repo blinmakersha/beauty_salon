@@ -97,9 +97,9 @@ class AppointmentForm(forms.Form):   # book an appointment
     def validate_appointment(self, doc_id, beginning, time_of_ending) -> bool:
         doctors_app = Appointment.objects.all().filter(doctor__id=doc_id)
         for appointment in doctors_app:
-            print(f'appointment.time_of_beginning: {appointment.time_of_beginning},   \
+            print(f'appointment.time_of_beginning: {appointment.time_of_beginning.replace(tzinfo=pytz.utc)},   \
                     appointment.time_of_ending: {appointment.time_of_ending}   \
-                    beginning: {beginning} time_of_ending: {time_of_ending}')
+                    beginning: {beginning.replace(tzinfo=pytz.utc)} time_of_ending: {time_of_ending}')
             if appointment.time_of_beginning < beginning.replace(tzinfo=pytz.utc) < appointment.time_of_ending:
                 self.add_error(
                     'appointment', 'Текущее время уже занято, выберите другое.')
