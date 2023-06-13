@@ -34,7 +34,7 @@ def register(request):
                                       email=request.POST['email'],
                                       phone=request.POST['phone'])
             except Exception as err:
-                print('нет пользователя: ', err)
+                print('Нет пользователя: ', err)
             return redirect('/')
         form_errors = form.errors
 
@@ -115,20 +115,20 @@ def profile_page(request):
                     client.money += funds_to_add
                     client.save()
                 return HttpResponseRedirect(reverse('profile'))
-            form_errors.append(f'Amount field must be greater than 0 and \
-                                the number of all digits must be less then {config.DECIMAL_MAX_DIGITS}')
+            form_errors.append(f'Значение должно быть больше 0 и \
+                                число символов не может быть больше чем {config.DECIMAL_MAX_DIGITS}')
         else:
             form_errors.extend(form.errors.get('money'))
 
     user_data = {
-        'username': user.username,
-        'first name': client.client_name,
-        'last name': client.client_surname,
-        'sex': client.sex,
-        'date_of_birth': client.date_of_birth,
-        'email': user.email,
-        'phone': client.phone,
-        'money': client.money,
+        'Псевдоним': user.username,
+        'Имя': client.client_name,
+        'Фамилия': client.client_surname,
+        'Пол': client.sex,
+        'Дата рождения': client.date_of_birth,
+        'Email': user.email,
+        'Номер телефона': client.phone,
+        'Баланс': client.money,
         'appointments': Appointment.objects.filter(client=client),
     }
 

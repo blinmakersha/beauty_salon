@@ -1,29 +1,108 @@
 {% extends 'main.html' %} {% load static %} {% block content %}
-<div class="container">
-	<h1>Личный кабинет</h1>
-	{% if user_data %}
-	<h4>Ваши данные:</h4>
-	<ul>
-		{% for key, value in user_data.items %} {% if key != 'appointments' %}
-		<li>{{key}}: {{value}}</li>
-		{% endif %} {% endfor %}
-	</ul>
-	{% endif %} {% if user_data.appointments %}
-	<h4>Ваши записи:</h4>
-	<ul>
-		{% for app in user_data.appointments %}
-		<li>{{ app }}</li>
-		{% endfor %}
-	</ul>
-	{% elif not appointments %}
-	<p>Записей ещё нет.</p>
-	{% endif %} {% if form_errors %}
-	<h5>{{ form_errors }}</h5>
-	{% endif %}
-	<form action="/profile/" method="POST">
-		{% csrf_token %} {{ form }}
-		<input type="submit" value="Add funds" />
-	</form>
-	<a href="{% url 'logout' %}?next={% url 'home' %}" style="color: #000">Logout</a>
-</div>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Beauty Salon</title>
+		<!-- Boxicons CSS -->
+		<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" />
+		<!-- Link To Css -->
+		<link rel="stylesheet" href="{% static 'profile.css' %}" />
+	</head>
+	<!-- Profile Start -->
+	<section class="profile container">
+		<h1 class="profile__title">Личный кабинет</h1>
+
+		<div class="profile__content">
+			{% if user_data %}
+			<h4>Ваши данные:</h4>
+			<ul class="profile__date">
+				{% for key, value in user_data.items %} {% if key != 'appointments' %}
+				<li>{{key}}: {{value}}</li>
+				{% endif %} {% endfor %}
+			</ul>
+			{% endif %} {% if user_data.appointments %}
+			<h4>Ваши записи:</h4>
+			<ul class="profile__book">
+				{% for app in user_data.appointments %}
+				<li>{{ app }}</li>
+				{% endfor %}
+			</ul>
+			{% elif not appointments %}
+			<p>Записей ещё нет.</p>
+			{% endif %} {% if form_errors %}
+			<h5>{{ form_errors }}</h5>
+			{% endif %}
+			<form action="/profile/" method="POST">
+				{% csrf_token %} {{ form }}
+				<input type="submit" value="Пополнить" />
+			</form>
+			<div class="btn-wrap">
+				<a href="{% url 'logout' %}?next={% url 'home' %}">Выйти</a>
+			</div>
+		</div>
+	</section>
+	<!-- Footer Start -->
+	<footer class="footer">
+		<div class="container container_footer">
+			<div class="footer-wrap">
+				<div class="footer__item">
+					<h3 class="footer__title">Контактная информация</h3>
+					<ul class="footer__list footer__list_contact">
+						<li>
+							<img src="/static/assets/email.svg" alt="" />
+							<a href="mailto:beauty@clinic.com">beauty@clinic.com</a>
+						</li>
+						<li>
+							<img src="/static/assets/call.svg" alt="" />
+							<a href="tel:+13055551234">+1 (305) 555-1234</a>
+						</li>
+						<li>
+							<img src="/static/assets/placeholder.svg" alt="" />
+							<a href="https://goo.gl/maps/CCEo343jVtv7khq97"
+								>123 Main Street, Miami, FL 33101, USA</a
+							>
+						</li>
+					</ul>
+				</div>
+				<div class="footer__item">
+					<h3 class="footer__title">Основные ссылки</h3>
+					<ul class="footer__list footer__list_contact_arrow">
+						<li>
+							<a href="{% url 'home' %}">Главная</a>
+						</li>
+						<li>
+							<a href="{% url 'doctors' %}">Наши специалисты</a>
+						</li>
+						<li>
+							<a href="{% url 'services' %}">Наши услуги</a>
+						</li>
+					</ul>
+				</div>
+				<div class="footer__item">
+					<h3 class="footer__title">Социальные сети</h3>
+					<ul class="footer__list footer__list_contact_arrow">
+						<li>
+							<a href="https://vk.com">VK</a>
+						</li>
+						<li>
+							<a href="https://instagram.com">Instagram</a>
+						</li>
+						<li>
+							<a href="https://t.me">Telegram</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="footer__line"></div>
+			<a href="" class="footer__logo">
+				<img src="/static/assets/logo.svg" alt="Beauty Salon" />
+			</a>
+			<p class="footer__text">Все права защищены.</p>
+		</div>
+	</footer>
+	<!-- Footer End -->
+	{% endblock %}
+</html>
